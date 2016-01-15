@@ -117,9 +117,15 @@
             if (expander) {
                 expander.remove();
             }
-            $(tpl).prependTo(cell).click(function() {
-                $($(this).closest('tr')).treegrid('toggle');
-            });
+            if ($this.treegrid('getSetting', 'cellAppendType') == 'append'){
+              $(tpl).appendTo(cell).click(function() {
+                  $($(this).closest('tr')).treegrid('toggle');
+              });
+            } else {
+              $(tpl).prependTo(cell).click(function() {
+                  $($(this).closest('tr')).treegrid('toggle');
+              });
+            }
             return $this;
         },
         /**
@@ -572,6 +578,7 @@
         expanderExpandedClass: 'treegrid-expander-expanded',
         expanderCollapsedClass: 'treegrid-expander-collapsed',
         treeColumn: 0,
+        cellAppendType: 'prependTo',
         getExpander: function() {
             return $(this).find('.treegrid-expander');
         },
